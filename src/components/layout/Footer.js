@@ -15,17 +15,21 @@ const Footer = () => {
             : theme.palette.grey[800],
       }}
     >
-      <Container maxWidth="sm">
+      <Container maxWidth="lg">
         <Typography variant="body2" color="text.secondary" align="center">
           {'© '}
           {new Date().getFullYear()}
           {' Profile Mapper. All rights reserved. '}
-          <Link color="inherit" href="/privacy">
-            Privacy Policy
+          <Link color="inherit" href="/">
+            Home
           </Link>
           {' | '}
-          <Link color="inherit" href="/terms">
-            Terms of Service
+          <Link color="inherit" href="/profiles">
+            Profiles
+          </Link>
+          {' | '}
+          <Link color="inherit" href="/admin">
+            Admin
           </Link>
         </Typography>
       </Container>

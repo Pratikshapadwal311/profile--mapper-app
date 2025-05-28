@@ -45,7 +45,7 @@ function App() {
   useEffect(() => {
     const initializeApp = async () => {
       try {
-        // Initialize Firebase with initial profiles
+        // Initialize profiles in local storage
         await initializeProfiles();
         
         // Fetch all profiles
@@ -73,6 +73,10 @@ function App() {
     }
   };
 
+  const handleErrorClose = () => {
+    setError(null);
+  };
+
   if (loading) {
     return <LoadingSpinner />;
   }
@@ -83,21 +87,40 @@ function App() {
       <Router>
         <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
           <Navbar />
-          {error && <ErrorAlert message={error} onClose={() => setError(null)} />}
           <Box component="main" sx={{ flexGrow: 1, py: 3 }}>
             <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/profiles" element={<ProfileList profiles={profiles} onProfileUpdate={handleProfileUpdate} />} />
-              <Route path="/profiles/:id" element={<ProfileDetail onProfileUpdate={handleProfileUpdate} />} />
-              <Route path="/admin" element={<AdminDashboard />} />
-              <Route path="/profile/new" element={<ProfileForm onProfileUpdate={handleProfileUpdate} />} />
-              <Route path="/profile/edit/:id" element={<ProfileForm onProfileUpdate={handleProfileUpdate} />} />
+              <Route path="/" element={<Home profiles={profiles} />} />
+              <Route 
+                path="/profiles" 
+                element={<ProfileList profiles={profiles} onProfileUpdate={handleProfileUpdate} />} 
+              />
+              <Route 
+                path="/profiles/:id" 
+                element={<ProfileDetail onProfileUpdate={handleProfileUpdate} />} 
+              />
+              <Route 
+                path="/profile/new" 
+                element={<ProfileForm onProfileUpdate={handleProfileUpdate} />} 
+              />
+              <Route 
+                path="/profile/edit/:id" 
+                element={<ProfileForm onProfileUpdate={handleProfileUpdate} />} 
+              />
+              <Route 
+                path="/admin" 
+                element={<AdminDashboard onProfileUpdate={handleProfileUpdate} />} 
+              />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Box>
           <Footer />
         </Box>
       </Router>
+      <ErrorAlert 
+        open={!!error} 
+        message={error} 
+        onClose={handleErrorClose} 
+      />
     </ThemeProvider>
   );
 }

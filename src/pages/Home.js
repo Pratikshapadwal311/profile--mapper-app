@@ -7,14 +7,13 @@ import {
   Grid,
   Card,
   CardContent,
-  CardMedia,
   Box,
 } from '@mui/material';
 import MapIcon from '@mui/icons-material/Map';
 import PeopleIcon from '@mui/icons-material/People';
 import SearchIcon from '@mui/icons-material/Search';
 
-const Home = () => {
+const Home = ({ profiles }) => {
   const navigate = useNavigate();
 
   const features = [
@@ -81,7 +80,7 @@ const Home = () => {
       </Box>
 
       {/* Features Section */}
-      <Container maxWidth="lg" sx={{ mb: 8 }}>
+      <Container maxWidth="lg">
         <Typography
           component="h2"
           variant="h3"
